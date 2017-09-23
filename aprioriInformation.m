@@ -1,5 +1,9 @@
+
 clear
 clc
+
+
+import recognition.*
 
 %%Image Cutting
 prostateImg = imread('Imagenes/an-u3-16-03.tif');
@@ -23,6 +27,7 @@ hFH = imfreehand();
 xypositionH = getPosition(hFH);
 graylevelAverageHalo = sum(xypositionH)/size(xypositionH);
 
+xypositionB=positionsback(xypositionP,xypositionH,prostateImgCutBlurry);
 %No se como obtener el conjunto de valores que no pertenecen ni a la
 %prostata ni el halo. La linea de abajo me regresa un conjunto vacio.
 %xypositionB = double(setdiff(prostateImgCutBlurry, union(xypositionP, xypositionH)));
@@ -33,6 +38,8 @@ probB = 1 - probP - probH;
 
 covP = cov(xypositionP);
 covH = cov(xypositionH);
+
+
 %Como no puedo obtener el conjunto de pixeles del background, no puedo
 %calcular su matriz de covarianza
 %covB = cov(xypositionB);
