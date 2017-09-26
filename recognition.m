@@ -12,10 +12,10 @@ pixelsB=double(0);
 [nRows,nCols] = size(blur);
 for x=1:nRows
     for y=1:nCols
-        if (blur(x,y)>=graylevelAverageProstate-5.0) && (blur(x,y)<=graylevelAverageProstate+5.0)
+        if (blur(x,y)>=graylevelAverageProstate) && (blur(x,y)<=graylevelAverageHalo)
             pixelsP = pixelsP + double(1);
-            blur(x,y)
-        elseif (blur(x,y)<=graylevelAverageProstate+5.0) && (blur(x,y)>=graylevelAverageHalo-5.0)
+            blur(x,y);
+        elseif (blur(x,y)<=graylevelAverageProstate) && (blur(x,y)>=graylevelAverageHalo)
             pixelsH = pixelsH + double(1);
         else
             pixelsB = pixelsB + double(1);
