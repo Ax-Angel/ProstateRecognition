@@ -39,7 +39,8 @@ difP = 0;
 difH = 0;
 difPB = 0;
 
-discriminants=[3];
+discriminants=(3);
+X_t = (double(3));
 
 meanP(1) = pixelsP / (nRows*nColumns);
 meanP(2) = xP / (nRows);
@@ -51,6 +52,8 @@ meanH(1) = pixelsH / (nRows*nColumns);
 meanH(2) = xH / (nRows);
 meanH(3) = yH / (nColumns);
 
+filteredImg = blur;
+
 for x=1:nRows
     for y=1:nColumns
         X_t(1) = blur(x,y);
@@ -61,9 +64,20 @@ for x=1:nRows
         difH = double(X_t) - meanH;
         difB = double(X_t) - meanB;
 
-        discriminants(1) = -1/2 * difP * inv(covP) * difP' -1/2 * log(det(covP)) + log(probP);
-        discriminants(2) = -1/2 * difH * inv(covH) * difH' -1/2 * log(det(covH)) + log(probH);
-        discriminants(3) = -1/2 * difB * inv(covB) * difP' -1/2 * log(det(covB)) + log(probB);
+        discriminants(1) = -1/2 * difP' * inv(covP) * difP -1/2 * log(det(covP)) + log(probP)
+        discriminants(2) = -1/2 * difH' * inv(covH) * difH -1/2 * log(det(covH)) + log(probH)
+        discriminants(3) = -1/2 * difB' * inv(covB) * difB -1/2 * log(det(covB)) + log(probB) 
+        
+        if (discriminants(1) > discriminants(2)) && (discriminants(1) > discriminants(3))
+            filteredImg(x,y) = 250;
+        elseif (discriminants(2) > discriminants(1)) && (discriminants(2) > discriminants(3))
+            filteredImg(x,y) = 128;
+        else
+            filteredImg(x,y) = 0;
+        end
     end
 end
+
+imagesc(filteredImg);
+colormap gray;
 
