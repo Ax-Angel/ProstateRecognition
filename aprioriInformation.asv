@@ -76,10 +76,9 @@ for x=1:i
             sumY = sumY + y;
             contH = contH + 1;
         end
-        iii = iii + 1;
-        matrixOfValuesH(iii,1) = sectionImgH(x,y);
-        matrixOfValuesH(iii,2) = x;
-        matrixOfValuesH(iii,3) = y;
+        matrixOfValuesH(cont,1) = sectionImgP(x,y);
+        matrixOfValuesH(contH,2) = x;
+        matrixOfValuesH(contH,3) = y;
     end
 end
 graylevelAverageHalo(2) = sumX / contH;
@@ -106,11 +105,11 @@ for x=1:i
             sumX = sumX + x;
             sumY = sumY + y;
             cont = cont + 1;
+            
+            matrixOfValuesB(cont,1) = sectionImgB(x,y);
+            matrixOfValuesB(cont,2) = x;
+            matrixOfValuesB(cont,3) = y;
         end
-        iii = iii + 1;
-        matrixOfValuesB(iii,1) = sectionImgB(x,y);
-        matrixOfValuesB(iii,2) = x;
-        matrixOfValuesB(iii,3) = y;
     end
 end
 graylevelAverageBack(2) = sumX / cont;
@@ -123,5 +122,5 @@ probH = contH / (nR*nC);
 probB = 1 - probP - probH;
 
 covP = cov(matrixOfValuesP);
-covH = cov(matrixOfValuesH);
-covB = cov(matrixOfValuesB);
+covH = cov(sectionImgH);
+covB = cov(sectionImgB);

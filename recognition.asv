@@ -32,7 +32,14 @@ for x=1:nRows
         end
     end
 end
-    
+
+
+%Tengo una duda con la formula del discriminante bayesiano. Segun como la
+%veo, si multiplican escalares por la inversa de una matriz. �Eso no
+%regresa una matriz?
+
+%%Falta implementar la funcion que regrese las funciones de bayes.
+
 [nRows, nColumns] = size(blur);
 
 difP = 0;
@@ -57,13 +64,13 @@ for x=1:nRows
         X_t(2) = x;
         X_t(3) = y;
         
-        difP = double(X_t) - meanP;
-        difH = double(X_t) - meanH;
-        difB = double(X_t) - meanB;
+        difP = double(X_t - meanP;
+        difH = X_t - meanH;
+        difB = X_t - meanB;
 
-        discriminants(1) = -1/2 * difP * inv(covP) * difP' -1/2 * log(det(covP)) + log(probP);
-        discriminants(2) = -1/2 * difH * inv(covH) * difH' -1/2 * log(det(covH)) + log(probH);
-        discriminants(3) = -1/2 * difB * inv(covB) * difP' -1/2 * log(det(covB)) + log(probB);
+        discriminants(1) = -1/2 * difP' * inv(covP) * difP -1/2 * log(det(covP)) + log(probP);
+        discriminants(2) = -1/2 * difH' * inv(covH) * difH -1/2 * log(det(covH)) + log(probH);
+        discriminants(3) = -1/2 * difB' * inv(covB) * difP -1/2 * log(det(covB)) + log(probB);
     end
 end
 
