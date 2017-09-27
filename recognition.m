@@ -18,15 +18,15 @@ yB=double(0);
 for x=1:nRows
     for y=1:nCols
         if (blur(x,y)>graylevelAverageProstate(1))
-            pixelsH = pixelsH + double(1);
+            pixelsH = pixelsH + double(blur(x,y));
             xH = xH + x;
             yH = yH + y;
         elseif (blur(x,y)>graylevelAverageBack(1)) 
-            pixelsP = pixelsP + double(1);
+            pixelsP = pixelsP + double(blur(x,y));
             xP = xP + x;
             yP = yP + y;
         else
-            pixelsB = pixelsB + double(1);
+            pixelsB = pixelsB + double(blur(x,y));
             xB = xB + x;
             yB = yB + y;
         end
@@ -34,23 +34,21 @@ for x=1:nRows
 end
     
 [nRows, nColumns] = size(blur);
-
-difP = 0;
-difH = 0;
-difPB = 0;
-
 discriminants=(3);
 X_t = (double(3));
 
 meanP(1) = pixelsP / (nRows*nColumns);
 meanP(2) = xP / (nRows);
 meanP(3) = yP / (nColumns);
-meanB(1) = pixelsB / (nRows*nColumns);
-meanB(2) = xB / (nRows);
-meanB(3) = yB / (nColumns);
+
 meanH(1) = pixelsH / (nRows*nColumns);
 meanH(2) = xH / (nRows);
 meanH(3) = yH / (nColumns);
+
+meanB(1) = pixelsB / (nRows*nColumns);
+meanB(2) = xB / (nRows);
+meanB(3) = yB / (nColumns);
+
 
 filteredImg = blur;
 
